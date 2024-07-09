@@ -17,7 +17,7 @@ const CustomHeaderOptions = ({ navigation }) => {
     },
     headerLeft: null, // Ẩn nút back
     headerRight: () => (
-      <TouchableOpacity onPress={() => navigation.navigate()}>
+      <TouchableOpacity onPress={() => navigation.navigate("Main")}>
          <Text>Kết thúc</Text>
       </TouchableOpacity>
     ),

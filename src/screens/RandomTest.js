@@ -1,35 +1,28 @@
 import React, { useState } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, FlatList, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, Dimensions, FlatList } from 'react-native';
 import Background from '../components/Background1';
 import questions from '../data/questions'; // Tạo file chứa danh sách câu hỏi
 
 const RandomTest = () => {
-  const [currentQuestionIndex, setCurrentQuestionIndex] = useState(0);
-  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(-1)); // Mảng lưu index của đáp án đã chọn
+  const [selectedAnswers, setSelectedAnswers] = useState(Array(questions.length).fill(-1)); // Mảng lưu trạng thái đáp án đã chọn cho mỗi câu hỏi
 
-  const handleNextQuestion = () => {
-    if (currentQuestionIndex < questions.length - 1) {
-      setCurrentQuestionIndex(currentQuestionIndex + 1);
-    }
-  };
-
-  const handleAnswerPress = (index) => {
+  const handleAnswerPress = (questionIndex, answerIndex) => {
     const newSelectedAnswers = [...selectedAnswers];
-    newSelectedAnswers[currentQuestionIndex] = index;
+    newSelectedAnswers[questionIndex] = answerIndex;
     setSelectedAnswers(newSelectedAnswers);
   };
 
-  const renderItem = ({ item }) => (
+  const renderItem = ({ item, index }) => (
     <View style={styles.questionContainer}>
       <Text style={styles.questionText}>{item.question}</Text>
-      {item.answers.map((answer, index) => (
+      {item.answers.map((answer, answerIndex) => (
         <TouchableOpacity
-          key={index}
+          key={answerIndex}
           style={[
             styles.answerButton,
-            selectedAnswers[currentQuestionIndex] === index && styles.selectedAnswerButton // Highlight đáp án đã chọn
+            selectedAnswers[index] === answerIndex && styles.selectedAnswerButton // Highlight đáp án đã chọn
           ]}
-          onPress={() => handleAnswerPress(index)}
+          onPress={() => handleAnswerPress(index, answerIndex)}
         >
           <Text style={styles.answerText}>{answer}</Text>
         </TouchableOpacity>
@@ -46,14 +39,7 @@ const RandomTest = () => {
         showsHorizontalScrollIndicator={false}
         renderItem={renderItem}
         keyExtractor={(item, index) => index.toString()}
-        onMomentumScrollEnd={(event) => {
-          const index = Math.round(event.nativeEvent.contentOffset.x / Dimensions.get('window').width);
-          setCurrentQuestionIndex(index);
-        }}
       />
-      <TouchableOpacity style={styles.button} onPress={handleNextQuestion}>
-        <Text style={styles.buttonText}>Next</Text>
-      </TouchableOpacity>
     </Background>
   );
 };
@@ -74,21 +60,9 @@ const styles = StyleSheet.create({
     borderRadius: 5,
   },
   selectedAnswerButton: {
-    backgroundColor: 'green', // Màu highlight khi đáp án được chọn
+    backgroundColor: '#DC5F00', // Màu highlight khi đáp án được chọn
   },
   answerText: {
-    fontSize: 16,
-  },
-  button: {
-    position: 'absolute',
-    bottom: 20,
-    right: 20,
-    backgroundColor: 'blue',
-    padding: 10,
-    borderRadius: 5,
-  },
-  buttonText: {
-    color: 'white',
     fontSize: 16,
   },
 });

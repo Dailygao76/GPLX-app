@@ -1,13 +1,13 @@
 const questions = [
   {
-    question: 'Khi gặp biển báo cấm vượt, người lái xe phải làm gì?',
+    question: 'Biển báo nào dưới đây là biển báo cấm dừng xe?',
     answers: [
-      'A. Được phép vượt nếu an toàn',
-      'B. Cấm vượt xe ưu tiên, xe bus',
-      'C. Vượt khi có người hướng dẫn',
-      'D. Được phép vượt tùy theo tình hình'
+      'A. Biển báo cấm đỗ xe',
+      'B. Biển báo cấm quay đầu',
+      'C. Biển báo cấm dừng xe',
+      'D. Biển báo cấm rẽ trái'
     ],
-    correctAnswer: 1  // Đáp án đúng là đáp án B
+    correctAnswer: 3  // Đáp án đúng là đáp án C
   },
   {
     question: 'Khi gặp biển báo hiệu đường giao nhau với đường ưu tiên ngược lại, người lái xe phải làm gì?',
